@@ -17,15 +17,12 @@ public class PreTiempoTranscurridoFilter extends ZuulFilter{
 
 	@Override
 	public boolean shouldFilter() {
-		return true; // si retorna true se ejecuta sino false es para validar
+		return true;
 	}
 
 	@Override
 	public Object run() throws ZuulException {
-		
-		/*****************************************************************
-			Esto me sirve para obtener el contexto y por ende el request
-		******************************************************************/
+
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 		
@@ -34,7 +31,7 @@ public class PreTiempoTranscurridoFilter extends ZuulFilter{
 		Long tiempoInicio = System.currentTimeMillis();
 		request.setAttribute("tiempoInicio", tiempoInicio);
 		
-		return request;
+		return null;
 	}
 
 	@Override
