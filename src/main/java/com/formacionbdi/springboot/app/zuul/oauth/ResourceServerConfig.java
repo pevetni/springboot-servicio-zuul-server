@@ -17,8 +17,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
-	@Value("${config.security.oauth.jwt.key}")
-	private String jwtKey;
+	//@Value("${config.security.oauth.jwt.key}")
+	//private String jwtKey;
 	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -28,8 +28,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/api/security/oauth/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/api/productos/listar", "/api/items/listar", "/api/usuarios/usuarios", "/api/base/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/api/base/banco/crear").permitAll();
+		.antMatchers(HttpMethod.GET, "/api/base/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/base/**").permitAll()
+		.antMatchers(HttpMethod.PUT, "/api/base/**").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/api/base/**").permitAll();
 //		.antMatchers(HttpMethod.GET, "/api/productos/ver/{id}", 
 //				"/api/items/ver/{id}/cantidad/{cantidad}", 
 //				"/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
@@ -45,7 +47,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey(jwtKey);
+		tokenConverter.setSigningKey("algun_codigo_secreto");
 		return tokenConverter;
 	}
 
